@@ -8,18 +8,21 @@
 #include "GameManager.h"
 #include "ResultState.h"
 
-InGameState::InGameState()
-	: randomEngine(std::random_device{}()), distribution(1, 10), drawCount(0)
+InGameState::InGameState(int drawRangeMaximum)
+	: randomEngine(std::random_device{}()),
+	  distribution(1, drawRangeMaximum),
+	  drawCount(0)
 {
 }
 
 void InGameState::OnEnter(GameManager* manager)
 {
 	std::cout << "\n=== ゲーム画面 ===\n";
-	std::cout << "Enterキーを押すたびに1～10の数字を抽選します。\n";
+	std::cout << "Enterキーを押すたびに1～"
+		<< manager->GetDrawRangeMaximum() << "の数字を抽選します。\n";
 }
 
-void InGameState::OnUpdate(GameManager* manager, float deltaTime)
+void InGameState::OnUpdate(GameManager* manager)
 {
 	if (_getch() != '\r')
 	{
@@ -32,15 +35,6 @@ void InGameState::OnUpdate(GameManager* manager, float deltaTime)
 
 	if (result == 1)
 	{
-		manager->ChangeState(std::make_unique<ResultState>(result, drawCount));
+		manager->ChangeState(std::make_unique<ResultState>(drawCount));
 	}
-}
-
-void InGameState::OnExit(GameManager* manager)
-{
-}
-
-const std::string InGameState::GetName() const
-{
-	return "InGameState";
 }

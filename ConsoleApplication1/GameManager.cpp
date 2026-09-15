@@ -2,11 +2,6 @@
 
 #include <utility>
 
-GameManager::GameManager() 
-	: isRunning(true), isUpdating(false), gameTime(0.0f)
-{
-}
-
 void GameManager::ChangeState(std::unique_ptr<Gamestate> newState)
 {
 	nextState = std::move(newState);
@@ -33,14 +28,29 @@ void GameManager::ApplyStateChange()
 	currentState->OnEnter(this);
 }
 
-void GameManager::Update(float deltaTime)
+void GameManager::Update()
 {
-	gameTime += deltaTime;
 	if (currentState)
 	{
 		isUpdating = true;
-		currentState->OnUpdate(this, deltaTime);
+		currentState->OnUpdate(this);
 		isUpdating = false;
 		ApplyStateChange();
 	}
+}
+
+int GameManager::GetDrawRangeMaximum() const
+{
+	return drawRangeMaximum;
+}
+
+bool GameManager::SetDrawRangeMaximum(int maximum)
+{
+	if (maximum < 1)
+	{
+		return false;
+	}
+
+	drawRangeMaximum = maximum;
+	return true;
 }

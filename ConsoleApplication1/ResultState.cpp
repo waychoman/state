@@ -7,30 +7,21 @@
 #include "GameManager.h"
 #include "MainMenuState.h"
 
-ResultState::ResultState(int result, int drawCount)
-	: result(result), drawCount(drawCount)
+ResultState::ResultState(int drawCount)
+	: drawCount(drawCount)
 {
 }
 
-void ResultState::OnEnter(GameManager* manager)
+void ResultState::OnEnter(GameManager*)
 {
 	std::cout << "\n=== 結果 ===\n";
-	std::cout << "当たりの数字は" << result << "でした。\n";
+	std::cout << "当たりの数字は1でした。\n";
 	std::cout << drawCount << "回目の抽選で1が出ました。\n";
 	std::cout << "何かキーを押すとメインメニューへ戻ります。\n";
 }
 
-void ResultState::OnUpdate(GameManager* manager, float deltaTime)
+void ResultState::OnUpdate(GameManager* manager)
 {
 	_getch();
 	manager->ChangeState(std::make_unique<MainMenuState>());
-}
-
-void ResultState::OnExit(GameManager* manager)
-{
-}
-
-const std::string ResultState::GetName() const
-{
-	return "ResultState";
 }

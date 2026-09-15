@@ -6,22 +6,13 @@
 #include "GameManager.h"
 #include "TitleState.h"
 
-void StartupState::OnEnter(GameManager* manager)
+void StartupState::OnEnter(GameManager*)
 {
 	std::cout << "=== 起動 ===\n";
 	std::cout << "ゲームを初期化しています...\n";
 }
 
-void StartupState::OnUpdate(GameManager* manager, float deltaTime)
+void StartupState::OnUpdate(GameManager* manager)
 {
 	manager->ChangeState(std::make_unique<TitleState>());
-}
-
-void StartupState::OnExit(GameManager* manager)
-{
-}
-
-const std::string StartupState::GetName() const
-{
-	return "StartupState";
 }

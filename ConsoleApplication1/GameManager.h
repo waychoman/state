@@ -7,15 +7,15 @@ class GameManager
 {
 	std::unique_ptr<Gamestate> currentState;
 	std::unique_ptr<Gamestate> nextState;
-	bool isRunning;
-	bool isUpdating;
-	float gameTime;
+	bool isUpdating = false;
+	int drawRangeMaximum = 10;
 
 	void ApplyStateChange();
 
 public:
-	GameManager();
 	void ChangeState(std::unique_ptr<Gamestate> newState);
-	void Update(float deltaTime);
+	void Update();
+	int GetDrawRangeMaximum() const;
+	bool SetDrawRangeMaximum(int maximum);
 };
 
