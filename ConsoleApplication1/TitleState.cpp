@@ -1,20 +1,26 @@
 #include "TitleState.h"
 
-#include<iostream>
+#include <conio.h>
+#include <iostream>
+#include <memory>
+
+#include "GameManager.h"
+#include "MainMenuState.h"
 
 void TitleState::OnEnter(GameManager* manager)
 {
-	std::cout << "タイトル画面" << std::endl;
+	std::cout << "\n=== 繧ｿ繧､繝医Ν ===\n";
+	std::cout << "菴輔°繧ｭ繝ｼ繧呈款縺吶→繝｡繧､繝ｳ繝｡繝九Η繝ｼ縺ｸ騾ｲ縺ｿ縺ｾ縺吶�\n";
 }
 
 void TitleState::OnUpdate(GameManager* manager, float deltaTime)
 {
-	
+	_getch();
+	manager->ChangeState(std::make_unique<MainMenuState>());
 }
 
 void TitleState::OnExit(GameManager* manager)
 {
-	std::cout << "タイトル画面終了" << std::endl;
 }
 
 const std::string TitleState::GetName() const

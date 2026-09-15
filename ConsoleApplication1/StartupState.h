@@ -1,6 +1,7 @@
 #pragma once
 #include "Gamestate.h"
-class TitleState : public Gamestate
+
+class StartupState : public Gamestate
 {
 public:
 	void OnEnter(GameManager* manager) override;
